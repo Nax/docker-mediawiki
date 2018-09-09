@@ -26,6 +26,7 @@ RUN apk add --no-cache --update --virtual .build-deps \
     && chown -R www-data:www-data /w \
     && mkdir -p /run/php-fpm/ \
     && chown www-data:www-data /run/php-fpm \
+    && chown -R www-data:www-data /var/tmp/nginx \
     && apk del .build-deps
 
 COPY supervisord.conf /etc/supervisord.conf
@@ -34,4 +35,5 @@ COPY entrypoint /usr/local/sbin/
 COPY php-fpm.conf /usr/local/etc/php-fpm.d/zz-docker.conf
 
 WORKDIR /w
+EXPOSE 80
 ENTRYPOINT ["/usr/local/sbin/entrypoint"]
